@@ -6,18 +6,36 @@ import os
 import sys
 
 
-def webpage_scrape(path):
-    logging.info("strating the data from the web page")
-    try:
-        documents = SimpleWebPageReader(html_to_text = True).load_data(
-            [path]
-        )
-        logging.info("data is extracted from the web page successfully")
-        return documents
-    except Exception as e:
-        raise RagException(e, sys) from e
+class WebScraper:  # Corrected class name for clarity
+    """
+    This class represents a web scraper with functionalities for loading data from web pages.
+    """
 
+    def __init__(self, path: str):
+        """
+        Initializes the WebScraper instance with the path to the web page.
 
+        Args:
+            path (str): The path (URL) to the web page to scrape.
+        """
+        self.path = path
 
-document = webpage_scrape("https://ticker.finology.in/company/RELIANCE")
-print(document)
+    def scrape(self) -> str:
+        """
+        Scrapes data from the specified web page and returns it as a string.
+
+        Returns:
+            str: The extracted data from the web page, or an empty string if an error occurs.
+        """
+
+        logging.info("Starting data scraping from the web page...")
+
+        try:
+            with SimpleWebPageReader(html_to_text=True) as reader:  # Context manager for resource management
+                documents = reader.load_data([self.path])
+                logging.info("Data successfully extracted from the web page.")
+                return documents.strip()  # Remove potential leading/trailing whitespace
+        except Exception as e:
+            logging.error("Error scraping data:", exc_info=True)  # Log detailed error information
+            return ""  # Return empty string on error
+
