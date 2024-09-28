@@ -5,8 +5,6 @@ from llama_index.embeddings.gemini import GeminiEmbedding
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.core import StorageContext
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
-from IPython.display import Markdown, display
 import chromadb
 from dotenv import load_dotenv
 from Rag.web_scraping import WebScraper
