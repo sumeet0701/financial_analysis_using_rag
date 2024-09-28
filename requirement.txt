@@ -4,3 +4,5 @@ llama-index-llms-gemini
 llama-index-vector-stores-chroma
 llama-index-embeddings-gemini
 streamlit
+chromadb
+dotenv
