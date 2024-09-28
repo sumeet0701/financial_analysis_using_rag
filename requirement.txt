@@ -1,3 +1,7 @@
 langchain
 streamlit
 chromadb
+langchain 
+playwright 
+beautifulsoup4 
+tiktoken
