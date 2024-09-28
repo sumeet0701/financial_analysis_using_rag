@@ -1,0 +1,1 @@
+Finacnial analysis of any company using Rag with Google gemini models.
