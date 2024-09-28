@@ -6,3 +6,5 @@ llama-index-embeddings-gemini
 streamlit
 chromadb
 dotenv
+llama-index-embeddings-huggingface
+einops

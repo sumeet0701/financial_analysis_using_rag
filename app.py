@@ -1,8 +1,10 @@
 import streamlit as st
-from Rag.web_scraping import WebScraper  # Assuming Rag.web_scraping provides WebScraper
+from Rag.constant import *
+from Rag.web_scraping import WebScraper
+from Rag.chunking import chunking_document
 
 # Define the web page URL template with a placeholder for the company name
-WEBPAGE_URL_TEMPLATE = "https://ticker.finology.in/company/{}"
+# WEBPAGE_URL_TEMPLATE = "https://ticker.finology.in/company/{}"
 
 def main():
     st.title("Company Data Scraper")
@@ -20,11 +22,12 @@ def main():
                 web_scraper = WebScraper(path= webpage_url)
                 # Call the scrape method of the WebScraper instance
                 data = web_scraper.scrape()
-
+                chunk = chunking_document(data)
                 if data:
                     st.success("Data fetched successfully!")
                     for item in data:
                         st.write(item)
+                        st.write(chunk[1].get_content())
                 else:
                     st.error("Failed to fetch data. Please try again.")
         else:

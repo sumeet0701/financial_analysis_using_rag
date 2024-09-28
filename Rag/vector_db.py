@@ -9,3 +9,7 @@ from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from IPython.display import Markdown, display
 import chromadb
 from dotenv import load_dotenv
+from Rag.web_scraping import WebScraper
+
+
+
