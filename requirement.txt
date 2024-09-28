@@ -1,7 +1,6 @@
-langchain
-streamlit
-chromadb
-langchain 
-playwright 
-beautifulsoup4 
-tiktoken
+llama-index 
+llama-index-readers-web
+llama-index-llms-gemini
+llama-index-vector-stores-chroma
+llama-index-embeddings-gemini
+
