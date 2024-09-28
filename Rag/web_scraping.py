@@ -1,6 +1,6 @@
 # scraping the webpage using llama-index 
-from logger import logging
-from exception import RagException
+from Rag.logger import logging
+from Rag.exception import RagException
 from llama_index.readers.web import SimpleWebPageReader
 import os
 import sys
@@ -31,10 +31,10 @@ class WebScraper:  # Corrected class name for clarity
         logging.info("Starting data scraping from the web page...")
 
         try:
-            with SimpleWebPageReader(html_to_text=True) as reader:  # Context manager for resource management
-                documents = reader.load_data([self.path])
-                logging.info("Data successfully extracted from the web page.")
-                return documents.strip()  # Remove potential leading/trailing whitespace
+             # Context manager for resource management
+            documents = SimpleWebPageReader(html_to_text= True).load_data([self.path])
+            logging.info("Data successfully extracted from the web page.")
+            return documents  # Remove potential leading/trailing whitespace
         except Exception as e:
             logging.error("Error scraping data:", exc_info=True)  # Log detailed error information
             return ""  # Return empty string on error
