@@ -4,17 +4,18 @@ from Rag.constant import *
 from llama_index.core.node_parser import SemanticSplitterNodeParser
 # from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.embeddings.gemini import GeminiEmbedding
-
+from langchain.text_splitter import RecursiveJsonSplitter
 import math
 import os, sys
 
 
 class Chunking:
 
+    def __init__(self)
+        pass
 
-
-
-
+    def chunking_using_recursive(self, documents, chunk_size, chunk_overlap):
+        pass
 
 
 

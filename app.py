@@ -1,7 +1,7 @@
 import streamlit as st
 from Rag.constant import *
 from Rag.web_scraping import WebScraper
-from Rag.chunking import Chunking
+# from Rag.chunking import Chunking
 from dotenv import load_dotenv
 import os
 
@@ -27,12 +27,12 @@ def main():
                 web_scraper = WebScraper(path= webpage_url)
                 # Call the scrape method of the WebScraper instance
                 data = web_scraper.scrape()
-                chunk = Chunking(api_key= api_key, embedding_model= embedding_model).chunking_document(documents=data, num_batches= 5)
+                #chunk = Chunking(api_key= api_key, embedding_model= embedding_model).chunking_document(documents=data, num_batches= 5)
                 if data:
                     st.success("Data fetched successfully!")
                     for item in data:
                         st.write(item)
-                        st.write(chunk[1].get_content())
+                        #st.write(chunk[1].get_content())
                 else:
                     st.error("Failed to fetch data. Please try again.")
         else:

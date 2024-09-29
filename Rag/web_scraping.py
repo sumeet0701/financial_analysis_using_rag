@@ -34,6 +34,7 @@ class WebScraper:  # Corrected class name for clarity
              # Context manager for resource management
             documents = SimpleWebPageReader(html_to_text= True).load_data([self.path])
             logging.info("Data successfully extracted from the web page.")
+            # logging.info(f"data type of document:{type(documents)}")
             return documents  # Remove potential leading/trailing whitespace
         except Exception as e:
             logging.error("Error scraping data:", exc_info=True)  # Log detailed error information
