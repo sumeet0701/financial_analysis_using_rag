@@ -17,20 +17,32 @@ class Chunking:
         self.embedding_model = embedding_model
     
 
-    def split_nodes_in_batches(self, nodes, num_batches):
-        """Splits a list of nodes into the specified number of batches."""
-        logging.info("spliting the extracted document into different batches...")
-        try:
-            batch_size = math.ceil(len(nodes) / num_batches)
-            logging.info("successfully divided the document into batches")
-            lst =[nodes[i:i + batch_size] for i in range(0, len(nodes), batch_size)]
-            logging.info(f"{lst}")
-            return lst
+    # def split_nodes_in_batches(self, nodes, num_batches):
+    #     """Splits a list of nodes into the specified number of batches."""
+    #     logging.info("spliting the extracted document into different batches...")
+    #     try:
+    #         batch_size = math.ceil(len(nodes) / num_batches)
+    #         logging.info("successfully divided the document into batches")
+    #         lst =[nodes[i:i + batch_size] for i in range(0, len(nodes), batch_size)]
+    #         logging.info(f"{lst}")
+    #         return lst
 
-        except Exception as e:
-            logging.error("Error splitting nodes into batches:", exc_info=True)  # Log detailed error information
-            return []
+    #     except Exception as e:
+    #         logging.error("Error splitting nodes into batches:", exc_info=True)  # Log detailed error information
+    #         return []
     
+    def spliting_document_into_batches(self, document, num_batches):
+        logging.info("Spliting document into batches")
+        try:
+            lines = document.split('\n')
+            batch_size = len(lines)/num_batches
+            batches = [lines[i:i + batch_size] for i in range(0, len(lines), batch_size)]
+            logging.info("Spliting document into batches is complete successfull")
+            return batches
+        except Exception as e:
+            logging.error("Error chunking data:", exc_info=True)  # Log detailed error information
+            return []
+            
     def chunking_document(self, documents, num_batches):
         """Chunks the document using semantic chunking."""
         logging.info("Chunking document using semantic chunking methods")
@@ -52,7 +64,7 @@ class Chunking:
 
             # Split the documents into batches
             logging.info(f"Splitting the documents into {num_batches} batches")
-            batch_documents = self.split_nodes_in_batches(documents, num_batches)
+            batch_documents = self.spliting_document_into_batches(documents, num_batches)
 
             nodes = []
             for idx, batch in enumerate(batch_documents):
