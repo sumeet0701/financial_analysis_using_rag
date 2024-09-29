@@ -24,9 +24,9 @@ def chunking_document(documents):
         # splitting the text using semantic chunking
         logging.info("chunking started")
         splitter = SemanticSplitterNodeParser(
-            buffer_size = 1,
+            buffer_size = 10,
             breakpoint_percentile_threshold=95,
-            embed_model=embedding_model
+            embed_model=embedding_model,
         )
 
         nodes = splitter.get_nodes_from_documents(documents,show_process = True)
