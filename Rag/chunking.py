@@ -23,7 +23,9 @@ class Chunking:
         try:
             batch_size = math.ceil(len(nodes) / num_batches)
             logging.info("successfully divided the document into batches")
-            return [nodes[i:i + batch_size] for i in range(0, len(nodes), batch_size)]
+            lst =[nodes[i:i + batch_size] for i in range(0, len(nodes), batch_size)]
+            logging.info(f"{lst}")
+            return lst
 
         except Exception as e:
             logging.error("Error splitting nodes into batches:", exc_info=True)  # Log detailed error information
@@ -35,7 +37,7 @@ class Chunking:
         try:
             logging.info("Loading the Google Gemini embedding model....")
             embedding_model = GeminiEmbedding(
-                model_name=self.model_name,  # Use the model name passed during class initialization
+                model_name=self.embedding_model,  # Use the model name passed during class initialization
                 api_key=self.api_key,
                 title="Embedding the extracted documents",
             )
@@ -54,6 +56,7 @@ class Chunking:
 
             nodes = []
             for idx, batch in enumerate(batch_documents):
+                logging.info(f"{documents}")
                 logging.info(f"Processing batch {idx + 1} of {len(batch_documents)}")
                 batch_nodes = splitter.get_nodes_from_documents(batch, show_process=True)
                 nodes.extend(batch_nodes)  # Correctly appending nodes from the batch
