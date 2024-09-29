@@ -28,15 +28,18 @@ def main():
                 # Call the scrape method of the WebScraper instance
                 data = web_scraper.scrape()
 
-                chunking = Chunking.chunking_using_recursive(documents= data,
-                                                             chunk_overlap= 100,
-                                                             chunk_size=512)
+                # Instantiate the Chunking class
+                chunking_instance = Chunking()
+
+                # Call the method on the instance
+                nodes = chunking_instance.chunking_using_recursive(documents=data, chunk_size=1000, chunk_overlap=200)
+
                 #chunk = Chunking(api_key= api_key, embedding_model= embedding_model).chunking_document(documents=data, num_batches= 5)
                 if data:
                     st.success("Data fetched successfully!")
                     for item in data:
                         st.write(item)
-                        st.write(chunking[1].get_content()) 
+                        st.write(nodes[1].get_content()) 
                 else:
                     st.error("Failed to fetch data. Please try again.")
         else:
