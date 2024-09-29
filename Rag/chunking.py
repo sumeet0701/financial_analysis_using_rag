@@ -4,12 +4,10 @@ from Rag.constant import *
 from llama_index.core.node_parser import SemanticSplitterNodeParser
 # from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.embeddings.gemini import GeminiEmbedding
-from dotenv import load_dotenv
 import math
 import os, sys
 
-load_dotenv()
-api_key = os.environ.get('GOOGLE_API_KEY')
+
 
 
 
