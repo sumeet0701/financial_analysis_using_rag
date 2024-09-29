@@ -2,6 +2,7 @@ import streamlit as st
 from Rag.constant import *
 from Rag.componets.web_scraping import WebScraper
 from Rag.componets.chunking import Chunking
+from Rag.componets.vector_db import Embedding
 from dotenv import load_dotenv
 import os
 
@@ -34,12 +35,16 @@ def main():
                 # Call the method on the instance
                 nodes = chunking_instance.chunking_using_recursive(documents=data, chunk_size=1000, chunk_overlap=200)
 
+                # embedding
+                embedding = Embedding(api_key= api_key, model_name= embedding_model).embedding_document(nodes)
+
                 #chunk = Chunking(api_key= api_key, embedding_model= embedding_model).chunking_document(documents=data, num_batches= 5)
                 if data:
                     st.success("Data fetched successfully!")
                     for item in data:
-                        st.write(item)
-                        st.write(nodes[1].get_content()) 
+                        #st.write(item)
+                        st.write(embedding.get_query_embedding("what is P/E ratio of company")) 
+
                 else:
                     st.error("Failed to fetch data. Please try again.")
         else:
