@@ -1,7 +1,7 @@
 import streamlit as st
 from Rag.constant import *
-from Rag.web_scraping import WebScraper
-from Rag.chunking import Chunking
+from Rag.componets.web_scraping import WebScraper
+from Rag.componets.chunking import Chunking
 from dotenv import load_dotenv
 import os
 

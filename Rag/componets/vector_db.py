@@ -7,7 +7,7 @@ from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.core import StorageContext
 import chromadb
 from dotenv import load_dotenv
-from Rag.web_scraping import WebScraper
+from Rag.componets.web_scraping import WebScraper
 
 
 
