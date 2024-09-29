@@ -22,7 +22,7 @@ def main():
                 web_scraper = WebScraper(path= webpage_url)
                 # Call the scrape method of the WebScraper instance
                 data = web_scraper.scrape()
-                chunk = chunking_document(data)
+                chunk = chunking_document(data, 5)
                 if data:
                     st.success("Data fetched successfully!")
                     for item in data:
