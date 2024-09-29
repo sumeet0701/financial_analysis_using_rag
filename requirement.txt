@@ -8,3 +8,4 @@ chromadb
 dotenv
 llama-index-embeddings-huggingface
 einops
+langchain
