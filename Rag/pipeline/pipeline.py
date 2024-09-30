@@ -8,8 +8,8 @@ from Rag.constant import *
 
 class Pipeline:
 
-    def __init__(self):
-        self.webpage_url = WEBPAGE_URL_TEMPLATE
+    def __init__(self, company_name):
+        self.webpage_url = WEBPAGE_URL_TEMPLATE.format(company_name)
         self.chunk_size = CHUNK_SIZE
         self.chunk_overlap = CHUNK_OVERLAP
     def webscraper(self):
@@ -40,5 +40,5 @@ class Pipeline:
         nodes = Pipeline.chunking(data= data)
         vector = Pipeline.vector_database_dumping(nodes= nodes)
     
-    
+
 
