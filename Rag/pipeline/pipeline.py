@@ -12,6 +12,7 @@ class Pipeline:
         self.webpage_url = WEBPAGE_URL_TEMPLATE.format(company_name)
         self.chunk_size = CHUNK_SIZE
         self.chunk_overlap = CHUNK_OVERLAP
+
     def webscraper(self):
         web_scrapper = WebScraper(path= self.webpage_url)
         data = web_scrapper.scrape()

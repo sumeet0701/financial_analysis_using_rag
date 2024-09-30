@@ -11,8 +11,6 @@ load_dotenv()
 api_key = os.environ.get('GOOGLE_API_KEY')
 embedding_model = GOOGLE_EMBEEDING_MODEL 
 
-
-
 def main():
     st.title("Company Data Scraper")
 
@@ -23,34 +21,35 @@ def main():
         if company_name:
             with st.spinner("Fetching data..."):
                 # Construct the complete web page URL using the company name
-                pipeline = Pipeline(company_name = company_name)
+                pipeline = Pipeline(company_name=company_name)
                 data = pipeline.webscraper()
 
-                #chunk = Chunking(api_key= api_key, embedding_model= embedding_model).chunking_document(documents=data, num_batches= 5)
                 if data:
                     st.success("Data fetched successfully!")
                     for item in data:
-                        st.write(item) 
-
+                        st.write(item)
                 else:
                     st.error("Failed to fetch data. Please try again.")
         else:
             st.warning("Please enter a company name.")
     
     query = st.text_input("Enter your query to retrieve the data from database")
-    if st.button("submit"):
-        with st.spinner("Fetching data from the vector database..."):
-            query = pipeline.main()
-            query_engine = query.as_retriever()
-            nodes = query_engine.retrieve(query)
-            if nodes:
-                st.success("Data retrieved successfully")
-                st.write(nodes)
-            else:
-                st.error("Failed to fetch data. Please try again.")
-    else:
-        st.warning("Please enter a Query .")
+    if st.button("Submit"):
+        if query:
+            with st.spinner("Fetching data from the vector database..."):
+                pipeline = Pipeline(company_name=company_name)
+                vector_data = pipeline.main()  # Call main() correctly
 
+                query_engine = vector_data.as_retriever()
+                nodes = query_engine.retrieve(query)
+
+                if nodes:
+                    st.success("Data retrieved successfully")
+                    st.write(nodes)
+                else:
+                    st.error("Failed to fetch data. Please try again.")
+        else:
+            st.warning("Please enter a query.")
 
 if __name__ == "__main__":
     main()
