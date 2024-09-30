@@ -39,6 +39,7 @@ class Pipeline:
         data = Pipeline.webscraper()
         nodes = Pipeline.chunking(data= data)
         vector = Pipeline.vector_database_dumping(nodes= nodes)
+        return vector
     
 
 

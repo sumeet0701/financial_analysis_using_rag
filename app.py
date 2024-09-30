@@ -37,7 +37,11 @@ def main():
         else:
             st.warning("Please enter a company name.")
     
-    query = st.text_input("Enter")
+    query = st.text_input("Enter your query to retrieve the data from database")
+    if st.button("submit"):
+        with st.spinner("Fetching data from the vector database..."):
+            query = pipeline.main()
+
 
 if __name__ == "__main__":
     main()
