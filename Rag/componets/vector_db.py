@@ -1,5 +1,6 @@
 from Rag.logger import logging
 from Rag.exception import RagException
+from Rag.constant import *
 import os, sys
 from llama_index.embeddings.gemini import GeminiEmbedding
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
@@ -45,7 +46,8 @@ class Embedding:
 
 class VectorEmbeddingStoring:
     def __init__(self, collection):
-        self.client = chromadb.PersistentClient(path = "C:\data_science\RAG based Project\financial_analysis_using_rag\Vector_db")
+        self.vector_db_path = VECTOR_DB_FILE_PATH
+        self.client = chromadb.PersistentClient(path =self.vector_db_path)
         self.collection = self.client.get_or_create_collection(name = collection)
 
     
@@ -70,7 +72,7 @@ class VectorEmbeddingStoring:
         
         return index
     
-    
+
 
 
 
