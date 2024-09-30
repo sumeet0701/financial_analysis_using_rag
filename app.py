@@ -9,8 +9,8 @@ import os
 load_dotenv()
 api_key = os.environ.get('GOOGLE_API_KEY')
 embedding_model = GOOGLE_EMBEEDING_MODEL 
-# Define the web page URL template with a placeholder for the company name
-# WEBPAGE_URL_TEMPLATE = "https://ticker.finology.in/company/{}"
+
+
 
 def main():
     st.title("Company Data Scraper")
