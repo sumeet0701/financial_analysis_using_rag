@@ -36,7 +36,9 @@ def main():
                 nodes = chunking_instance.chunking_using_recursive(documents=data, chunk_size=1000, chunk_overlap=200)
 
                 # embedding
-                embedding = Embedding(api_key= api_key, model_name= embedding_model).embedding_document(nodes)
+                embedding = Embedding(api_key= api_key, model_name= embedding_model).embedding_document()
+
+                
 
                 #chunk = Chunking(api_key= api_key, embedding_model= embedding_model).chunking_document(documents=data, num_batches= 5)
                 if data:
