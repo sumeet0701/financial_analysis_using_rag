@@ -5,6 +5,7 @@ from llama_index.embeddings.gemini import GeminiEmbedding
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.core import StorageContext
+
 import chromadb
 from dotenv import load_dotenv
 
@@ -23,7 +24,7 @@ class Embedding:
         self.model_name = model_name
     
 
-    def embedding_document(self, documents):
+    def embedding_document(self):
         try:
         # get API key and create embeddings
             logging.info("embedding of documents is started...")
@@ -42,6 +43,38 @@ class Embedding:
             raise RagException(e) from e
         
 
+class VectorEmbeddingStoring:
+    def __init__(self, collection):
+        self.client = chromadb.PersistentClient(path = "C:\data_science\RAG based Project\financial_analysis_using_rag\Vector_db")
+        self.collection = self.client.get_or_create_collection(name = collection)
+
+    
+    def saving_vector_database(self, nodes):
+        vector_store = ChromaVectorStore(chroma_collection = self.collection)
+        storage_context = storage_context.from_defaults(vector_store =  vector_store)
+        index = vector_store( 
+            nodes,
+            storage_context = storage_context,
+            embed_model = Embedding.embedding_document()
+            
+        )
+        return index
+    
+    def loading_vector_database(self,):
+        db = self.client
+        collection = db.get_or_create_collection(collection)
+        vector_store = ChromaVectorStore(chroma_collection=collection)
+        index = VectorStoreIndex.from_vector_store(
+            vector_store,
+            embed_model=Embedding.embedding_document())
+        
+        return index
+    
+    
+
+
+
+    
 
 
 
