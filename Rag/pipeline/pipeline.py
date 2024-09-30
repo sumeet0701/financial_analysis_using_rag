@@ -14,33 +14,31 @@ class Pipeline:
         self.chunk_overlap = CHUNK_OVERLAP
 
     def webscraper(self):
-        web_scrapper = WebScraper(path= self.webpage_url)
+        web_scrapper = WebScraper(path=self.webpage_url)
         data = web_scrapper.scrape()
         return data
     
     def chunking(self, data):
         chunking_instance = Chunking()
         nodes = chunking_instance.chunking_using_recursive(
-            documents= data,
-            chunk_overlap= self.chunk_overlap,
-            chunk_size= self.chunk_size
+            documents=data,
+            chunk_overlap=self.chunk_overlap,
+            chunk_size=self.chunk_size
         )
         return nodes
 
-    
     def vector_database_dumping(self, nodes):
-        vector_embedding = VectorEmbeddingStoring(collection= "web_data")
-        loading_data_disk = vector_embedding.saving_vector_database(nodes = nodes)
+        vector_embedding = VectorEmbeddingStoring(collection="web_data")
+        loading_data_disk = vector_embedding.saving_vector_database(nodes=nodes)
         loading_data_from_database = vector_embedding.loading_vector_database()
         return loading_data_from_database
     
-    def RAG(self):...
+    def RAG(self):
+        pass
 
-    def main():
-        data = Pipeline.webscraper()
-        nodes = Pipeline.chunking(data= data)
-        vector = Pipeline.vector_database_dumping(nodes= nodes)
+    # Correct method definition with self
+    def main(self):  
+        data = self.webscraper()
+        nodes = self.chunking(data=data)
+        vector = self.vector_database_dumping(nodes=nodes)
         return vector
-    
-
-
