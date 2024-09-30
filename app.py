@@ -41,6 +41,15 @@ def main():
     if st.button("submit"):
         with st.spinner("Fetching data from the vector database..."):
             query = pipeline.main()
+            query_engine = query.as_retriever()
+            nodes = query_engine.retrieve(query)
+            if nodes:
+                st.success("Data retrieved successfully")
+                st.write(nodes)
+            else:
+                st.error("Failed to fetch data. Please try again.")
+    else:
+        st.warning("Please enter a Query .")
 
 
 if __name__ == "__main__":
