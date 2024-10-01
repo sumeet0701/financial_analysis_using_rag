@@ -8,10 +8,12 @@ from Rag.constant import *
 
 class Pipeline:
 
-    def __init__(self, company_name):
+    def __init__(self, company_name, api_key, model_name):
         self.webpage_url = WEBPAGE_URL_TEMPLATE.format(company_name)
         self.chunk_size = CHUNK_SIZE
         self.chunk_overlap = CHUNK_OVERLAP
+        self.api_key = api_key  # Store the API key
+        self.model_name = model_name  # Store the model name
 
     def webscraper(self):
         web_scrapper = WebScraper(path=self.webpage_url)
@@ -28,7 +30,12 @@ class Pipeline:
         return nodes
 
     def vector_database_dumping(self, nodes):
-        vector_embedding = VectorEmbeddingStoring(collection="web_data")
+        # Pass api_key and model_name when creating VectorEmbeddingStoring instance
+        vector_embedding = VectorEmbeddingStoring(
+            collection="web_data",
+            api_key=self.api_key,
+            model_name=self.model_name
+        )
         loading_data_disk = vector_embedding.saving_vector_database(nodes=nodes)
         loading_data_from_database = vector_embedding.loading_vector_database()
         return loading_data_from_database
