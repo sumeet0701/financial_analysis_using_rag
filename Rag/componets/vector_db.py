@@ -6,7 +6,7 @@ from llama_index.embeddings.gemini import GeminiEmbedding
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.core import StorageContext
-
+from llama_index.core import VectorStoreIndex
 import chromadb
 from dotenv import load_dotenv
 
@@ -55,7 +55,7 @@ class VectorEmbeddingStoring:
         embed_model = self.embedder.embedding_document()
         vector_store = ChromaVectorStore(chroma_collection = self.collection)
         storage_context = StorageContext.from_defaults(vector_store =  vector_store)
-        index = vector_store( 
+        index = VectorStoreIndex( 
             nodes,
             storage_context = storage_context,
             embed_model = embed_model
