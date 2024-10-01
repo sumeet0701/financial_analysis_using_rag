@@ -45,31 +45,33 @@ class Embedding:
         
 
 class VectorEmbeddingStoring:
-    def __init__(self, collection):
+    def __init__(self, collection, api_key, model_name):
         self.vector_db_path = VECTOR_DB_FILE_PATH
         self.client = chromadb.PersistentClient(path =self.vector_db_path)
         self.collection = self.client.get_or_create_collection(name = collection)
-
+        self.embedder = Embedding(api_key, model_name)
     
     def saving_vector_database(self, nodes):
+        embed_model = self.embedder.embedding_document()
         vector_store = ChromaVectorStore(chroma_collection = self.collection)
-        storage_context = storage_context.from_defaults(vector_store =  vector_store)
+        storage_context = StorageContext.from_defaults(vector_store =  vector_store)
         index = vector_store( 
             nodes,
             storage_context = storage_context,
-            embed_model = Embedding.embedding_document()
+            embed_model = embed_model
             
         )
         return index
     
-    def loading_vector_database(self,):
+    def loading_vector_database(self):
         db = self.client
+        embed_model = self.embedder.embedding_document()
         collection = db.get_or_create_collection(collection)
         vector_store = ChromaVectorStore(chroma_collection=collection)
         index = VectorStoreIndex.from_vector_store(
             vector_store,
-            embed_model=Embedding.embedding_document())
-        
+            embed_model=embed_model
+        )
         return index
     
 
