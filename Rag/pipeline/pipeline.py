@@ -17,8 +17,8 @@ class Pipeline:
             self.webpage_url = WEBPAGE_URL_TEMPLATE.format(company_name)
             self.chunk_size = CHUNK_SIZE
             self.chunk_overlap = CHUNK_OVERLAP
-            self.api_key = os.environ.get('GOOGLE_API_KEY')  # Store the API key
-            self.model_name = GOOGLE_EMBEEDING_MODEL  # Store the model name
+            self.api_key = os.environ.get('COHERENT_API_KEY')  # Store the API key
+            self.model_name = COHERE_EMBEDDING_MODEL  # Store the model name
         except Exception as e:
             logging.error("Error Embedding document:", exc_info=True)  # Log detailed error information
             raise RagException(e) from e
