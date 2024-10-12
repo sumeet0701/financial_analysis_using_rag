@@ -7,6 +7,7 @@ from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.core import StorageContext
 from llama_index.core import VectorStoreIndex
+from llama_index.embeddings.cohere import CohereEmbedding
 import chromadb
 from dotenv import load_dotenv
 
@@ -32,9 +33,11 @@ class Embedding:
 
             model_name = self.model_name
 
-            embed_model = GeminiEmbedding(
-                model_name=model_name, 
-                api_key=self.api_key, 
+            embed_model = CohereEmbedding(
+                api_key=self.api_key,
+                model_name = self.model_name
+                input_type="search_document"
+
             )
 
             logging.info("embedding model is loadde. completed successfully..")
