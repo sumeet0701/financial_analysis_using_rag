@@ -35,7 +35,7 @@ class Embedding:
 
             embed_model = CohereEmbedding(
                 api_key=self.api_key,
-                model_name = self.model_name
+                model_name = self.model_name,
                 input_type="search_document"
 
             )
